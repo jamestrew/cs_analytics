@@ -1,4 +1,4 @@
-"""cs_analystics URL Configuration
+"""cs_analytics URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
