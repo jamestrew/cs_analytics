@@ -11,85 +11,9 @@ from django.db import models
  Feel free to rename the models, but don't rename db_table values or field names.
 """
 
-
-class BombDefused(models.Model):
-    game = models.ForeignKey('Game', models.DO_NOTHING)
-    player = models.ForeignKey('Player', models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
-    site = models.IntegerField()
-    event_number = models.IntegerField()
-    round = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'bomb_defused'
-
-
-class BombPlanted(models.Model):
-    game = models.ForeignKey('Game', models.DO_NOTHING)
-    player = models.ForeignKey('Player', models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
-    site = models.IntegerField()
-    event_number = models.IntegerField()
-    round = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'bomb_planted'
-
-
-class EventJson(models.Model):
-    game = models.ForeignKey('Game', models.DO_NOTHING)
-    data = models.JSONField()  # This field type is a guess.
-
-    class Meta:
-        managed = False
-        db_table = 'event_json'
-
-
-class Game(models.Model):
-    share_code = models.TextField(unique=True)
-    match_time = models.DateTimeField()
-    match_duration = models.IntegerField()
-    map_l = models.ForeignKey('MapL', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'game'
-
-
-class Item(models.Model):
-    id = models.IntegerField(primary_key=True)
-    weapon_name = models.TextField()
-    item_name = models.TextField()
-    alternate = models.BooleanField()
-    item_type_l = models.ForeignKey('ItemTypeL', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'item'
-
-
-class ItemEquip(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey('Player', models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
-    item = models.ForeignKey(Item, models.DO_NOTHING)
-    event_number = models.IntegerField()
-    round = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'item_equip'
-
-
-class ItemTypeL(models.Model):
-    id = models.IntegerField(primary_key=True)
-    type_name = models.TextField(unique=True)
-
-    class Meta:
-        managed = False
-        db_table = 'item_type_l'
+# after all changes are made migrate the model
+# * py manage.py makemigrations
+# * py manage.py migrate --fake-initial
 
 
 class MapL(models.Model):
@@ -101,9 +25,50 @@ class MapL(models.Model):
         db_table = 'map_l'
 
 
+class Game(models.Model):
+    share_code = models.TextField(unique=True)
+    match_time = models.DateTimeField()
+    match_duration = models.IntegerField()
+    map_l = models.ForeignKey(MapL, models.CASCADE)
+
+    class Meta:
+        managed = False
+        db_table = 'game'
+
+
+class ItemTypeL(models.Model):
+    id = models.IntegerField(primary_key=True)
+    type_name = models.TextField(unique=True)
+
+    class Meta:
+        managed = False
+        db_table = 'item_type_l'
+
+
+class Item(models.Model):
+    id = models.IntegerField(primary_key=True)
+    weapon_name = models.TextField()
+    item_name = models.TextField()
+    alternate = models.BooleanField()
+    item_type_l = models.ForeignKey(ItemTypeL, models.CASCADE)
+
+    class Meta:
+        managed = False
+        db_table = 'item'
+
+
+class TeamL(models.Model):
+    id = models.IntegerField(primary_key=True)
+    team_name = models.TextField(unique=True)
+
+    class Meta:
+        managed = False
+        db_table = 'team_l'
+
+
 class Player(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    first_team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
+    first_team_l = models.ForeignKey(TeamL, models.CASCADE)
     xuid = models.TextField()
     player_name = models.TextField()
 
@@ -112,11 +77,50 @@ class Player(models.Model):
         db_table = 'player'
 
 
+class BombDefused(models.Model):
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    site = models.IntegerField()
+    event_number = models.IntegerField()
+    round = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'bomb_defused'
+
+
+class BombPlanted(models.Model):
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    site = models.IntegerField()
+    event_number = models.IntegerField()
+    round = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'bomb_planted'
+
+
+class ItemEquip(models.Model):
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    item = models.ForeignKey(Item, models.CASCADE)
+    event_number = models.IntegerField()
+    round = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'item_equip'
+
+
 class PlayerBlind(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey(Player, models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
-    attacker = models.ForeignKey(Player, models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE, 'player_blind-player+')
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    attacker = models.ForeignKey(Player, models.CASCADE, 'player_blind-attacker+')
     blind_duration = models.FloatField()
     event_number = models.IntegerField()
     round = models.IntegerField()
@@ -127,13 +131,15 @@ class PlayerBlind(models.Model):
 
 
 class PlayerDeath(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey(Player, models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
-    player_item = models.ForeignKey(Item, models.DO_NOTHING)
-    attacker = models.ForeignKey(Player, models.DO_NOTHING, blank=True, null=True)
-    assister = models.ForeignKey(Player, models.DO_NOTHING, blank=True, null=True)
-    item = models.ForeignKey(Item, models.DO_NOTHING, blank=True, null=True)
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE, 'player_death-player+')
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    player_item = models.ForeignKey(Item, models.CASCADE, 'player_death-player_item+')
+    attacker = models.ForeignKey(Player, models.CASCADE,
+                                 'player_death-attacker+', blank=True, null=True)
+    assister = models.ForeignKey(Player, models.CASCADE,
+                                 'player_death-assister+', blank=True, null=True)
+    item = models.ForeignKey(Item, models.CASCADE, 'player_death-item+', blank=True, null=True)
     assistedflash = models.BooleanField()
     headshot = models.BooleanField()
     dominated = models.BooleanField()
@@ -153,9 +159,9 @@ class PlayerDeath(models.Model):
 
 
 class PlayerFalldamage(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey(Player, models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
     damage = models.FloatField()
     event_number = models.IntegerField()
     round = models.IntegerField()
@@ -166,11 +172,12 @@ class PlayerFalldamage(models.Model):
 
 
 class PlayerHurt(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey(Player, models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
-    attacker = models.ForeignKey(Player, models.DO_NOTHING, blank=True, null=True)
-    item = models.ForeignKey(Item, models.DO_NOTHING, blank=True, null=True)
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE, 'player_hurt-player+')
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    attacker = models.ForeignKey(Player, models.CASCADE,
+                                 'player_hurt-attacker+', blank=True, null=True)
+    item = models.ForeignKey(Item, models.CASCADE, blank=True, null=True)
     health = models.IntegerField()
     armor = models.IntegerField()
     dmg_health = models.IntegerField()
@@ -185,8 +192,8 @@ class PlayerHurt(models.Model):
 
 
 class RoundEnd(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
     reason = models.IntegerField()
     message = models.TextField()
     event_number = models.IntegerField()
@@ -198,9 +205,9 @@ class RoundEnd(models.Model):
 
 
 class RoundMvp(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey(Player, models.DO_NOTHING)
-    team_l = models.ForeignKey('TeamL', models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
     reason = models.IntegerField()
     event_number = models.IntegerField()
     round = models.IntegerField()
@@ -211,7 +218,7 @@ class RoundMvp(models.Model):
 
 
 class RoundStart(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
     timelimit = models.IntegerField()
     event_number = models.IntegerField()
     round = models.IntegerField()
@@ -221,20 +228,11 @@ class RoundStart(models.Model):
         db_table = 'round_start'
 
 
-class TeamL(models.Model):
-    id = models.IntegerField(primary_key=True)
-    team_name = models.TextField(unique=True)
-
-    class Meta:
-        managed = False
-        db_table = 'team_l'
-
-
 class WeaponFire(models.Model):
-    game = models.ForeignKey(Game, models.DO_NOTHING)
-    player = models.ForeignKey(Player, models.DO_NOTHING)
-    team_l = models.ForeignKey(TeamL, models.DO_NOTHING)
-    item = models.ForeignKey(Item, models.DO_NOTHING)
+    game = models.ForeignKey(Game, models.CASCADE)
+    player = models.ForeignKey(Player, models.CASCADE)
+    team_l = models.ForeignKey(TeamL, models.CASCADE)
+    item = models.ForeignKey(Item, models.CASCADE)
     silenced = models.BooleanField()
     event_number = models.IntegerField()
     round = models.IntegerField()
@@ -242,3 +240,12 @@ class WeaponFire(models.Model):
     class Meta:
         managed = False
         db_table = 'weapon_fire'
+
+
+class EventJson(models.Model):
+    game = models.ForeignKey(Game, models.CASCADE)
+    data = models.JSONField()
+
+    class Meta:
+        managed = False
+        db_table = 'event_json'
