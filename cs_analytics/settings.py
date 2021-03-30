@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'analytics.apps.AnalyticsConfig'
+    # apps
+    'analytics.apps.AnalyticsConfig',
+
+    # third party
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
