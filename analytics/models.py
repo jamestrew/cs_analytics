@@ -10,7 +10,7 @@ class MapL(models.Model):
         db_table = 'map_l'
 
     def __str__(self):
-        return f'MapL({self.pk}, {self.map_name})'
+        return f'{self.pk}, {self.map_name}'
 
 
 class Game(models.Model):
@@ -24,7 +24,7 @@ class Game(models.Model):
         db_table = 'game'
 
     def __str__(self):
-        return f'Game({self.pk}, {self.share_code} {self.match_time})'
+        return f'{self.pk}, {self.share_code} {self.match_time}'
 
 
 class ItemTypeL(models.Model):
@@ -36,7 +36,7 @@ class ItemTypeL(models.Model):
         db_table = 'item_type_l'
 
     def __str__(self):
-        return f'ItemTypeL({self.pk}, {self.type_name})'
+        return f'{self.pk}, {self.type_name}'
 
 
 class Item(models.Model):
@@ -51,7 +51,7 @@ class Item(models.Model):
         db_table = 'item'
 
     def __str__(self):
-        return f'Item({self.pk}, {self.weapon_name})'
+        return f'{self.pk}, {self.weapon_name}'
 
 
 class TeamL(models.Model):
@@ -63,7 +63,7 @@ class TeamL(models.Model):
         db_table = 'team_l'
 
     def __str__(self):
-        return f'TeamL({self.pk}, {self.team_name})'
+        return f'{self.pk}, {self.team_name}'
 
 
 class Player(models.Model):
@@ -77,7 +77,7 @@ class Player(models.Model):
         db_table = 'player'
 
     def __str__(self):
-        return f'Player({self.pk}, {self.game} {self.player_name})'
+        return f'{self.pk}, {self.game}, {self.player_name}'
 
 
 class BombDefused(models.Model):
@@ -93,7 +93,7 @@ class BombDefused(models.Model):
         db_table = 'bomb_defused'
 
     def __str__(self):
-        return f'BombDefused({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class BombPlanted(models.Model):
@@ -109,7 +109,7 @@ class BombPlanted(models.Model):
         db_table = 'bomb_planted'
 
     def __str__(self):
-        return f'BombPlanted({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class ItemEquip(models.Model):
@@ -125,7 +125,7 @@ class ItemEquip(models.Model):
         db_table = 'item_equip'
 
     def __str__(self):
-        return f'ItemEquip({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class PlayerBlind(models.Model):
@@ -142,7 +142,7 @@ class PlayerBlind(models.Model):
         db_table = 'player_blind'
 
     def __str__(self):
-        return f'PlayerBlind({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class PlayerDeath(models.Model):
@@ -173,7 +173,7 @@ class PlayerDeath(models.Model):
         db_table = 'player_death'
 
     def __str__(self):
-        return f'PlayerDeath({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class PlayerFalldamage(models.Model):
@@ -189,7 +189,7 @@ class PlayerFalldamage(models.Model):
         db_table = 'player_falldamage'
 
     def __str__(self):
-        return f'PlayerFallDamage({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class PlayerHurt(models.Model):
@@ -212,7 +212,7 @@ class PlayerHurt(models.Model):
         db_table = 'player_hurt'
 
     def __str__(self):
-        return f'PlayerHurt({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class RoundEnd(models.Model):
@@ -228,7 +228,7 @@ class RoundEnd(models.Model):
         db_table = 'round_end'
 
     def __str__(self):
-        return f'RoundEnd({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class RoundMvp(models.Model):
@@ -244,7 +244,7 @@ class RoundMvp(models.Model):
         db_table = 'round_mvp'
 
     def __str__(self):
-        return f'RoundMvp({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class RoundStart(models.Model):
@@ -258,7 +258,7 @@ class RoundStart(models.Model):
         db_table = 'round_start'
 
     def __str__(self):
-        return f'RoundStart({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class WeaponFire(models.Model):
@@ -275,7 +275,7 @@ class WeaponFire(models.Model):
         db_table = 'weapon_fire'
 
     def __str__(self):
-        return f'WeaponFire({self.pk}, {self.game} {self.event_number} {self.round})'
+        return f'{self.pk}, {self.game}, {self.event_number}, {self.round}'
 
 
 class EventJson(models.Model):
@@ -287,4 +287,4 @@ class EventJson(models.Model):
         db_table = 'event_json'
 
     def __str__(self):
-        return f'EventJson({self.pk}, {self.game})'
+        return f'{self.pk}, {self.game}'
