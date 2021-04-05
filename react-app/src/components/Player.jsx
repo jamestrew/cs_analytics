@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../utils/API";
+import { djangoAPI } from "../utils/API";
 
 export const Player = (props) => {
   const [data, setData] = useState([]);
@@ -7,11 +7,11 @@ export const Player = (props) => {
   const fetchUrl = "player/" + xuid;
 
   useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get(fetchUrl);
+    const fetchData = async () => {
+      const request = await djangoAPI.get(fetchUrl);
       setData(request.data);
       return request;
-    }
+    };
     fetchData();
   }, [fetchUrl]);
 
