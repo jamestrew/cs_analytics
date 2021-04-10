@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {LargeCard} from "./LargeCard"
 import { djangoAPI } from "../utils/API";
 
 export const Player = (props) => {
@@ -10,6 +11,7 @@ export const Player = (props) => {
     const fetchData = async () => {
       const request = await djangoAPI.get(fetchUrl);
       setData(request.data);
+      console.log(request.data)
       return request;
     };
     fetchData();
@@ -18,6 +20,7 @@ export const Player = (props) => {
   return (
     <div>
       <h1>Hello {xuid}!</h1>
+      <LargeCard header="Kills/Death" mainStat={data.kd_ratio}/>
       <p>Kills: {data.kills}</p>
       <p>Deaths: {data.deaths}</p>
       <p>K/D: {data.kd_ratio}</p>
