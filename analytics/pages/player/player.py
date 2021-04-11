@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .hltv import HLTVSerializer, HLTVStat
 from .kd import KDSerializer, KDStat
 from .win_rate import WinRateSerializer, WinRateStat
+from .one_v_x import OneVOneStat, OneVTwoStat, OneVXSerializer
 
 
 def player_exists(xuid):
@@ -19,6 +20,8 @@ class Player:
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
             self.winrate = WinRateStat(self.xuid)
+            self.onevone = OneVOneStat(self.xuid)
+            self.onevtwo = OneVTwoStat(self.xuid)
 
 
 class PlayerSerializer(serializers.Serializer):
@@ -26,3 +29,5 @@ class PlayerSerializer(serializers.Serializer):
     hltv = HLTVSerializer()
     kd = KDSerializer()
     winrate = WinRateSerializer()
+    onevone = OneVXSerializer()
+    onevtwo = OneVXSerializer()
