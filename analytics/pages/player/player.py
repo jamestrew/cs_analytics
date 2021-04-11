@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from .hltv import HLTVSerializer, HLTVStat
-from .player_kd import KDSerializer, KDStat
+from .kd import KDSerializer, KDStat
+from .win_rate import WinRateSerializer, WinRateStat
 
 
 def player_exists(xuid):
@@ -17,9 +18,11 @@ class Player:
         if self.valid:
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
+            self.winrate = WinRateStat(self.xuid)
 
 
 class PlayerSerializer(serializers.Serializer):
     xuid = serializers.CharField()
     hltv = HLTVSerializer()
     kd = KDSerializer()
+    winrate = WinRateSerializer()
