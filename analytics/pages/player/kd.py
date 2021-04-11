@@ -1,4 +1,5 @@
 from analytics.models import PlayerDeath
+import decimal
 from rest_framework import serializers
 
 
@@ -17,4 +18,5 @@ class KDStat:
 class KDSerializer(serializers.Serializer):
     kills = serializers.IntegerField()
     deaths = serializers.IntegerField()
-    kd = serializers.DecimalField(max_digits=None, decimal_places=2)
+    kd = serializers.DecimalField(max_digits=None, decimal_places=2,
+                                  rounding=decimal.ROUND_HALF_UP)
