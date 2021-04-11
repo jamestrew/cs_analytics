@@ -1,4 +1,5 @@
 from rest_framework import serializers
+import decimal
 
 
 class HLTVStat:
@@ -10,4 +11,5 @@ class HLTVStat:
 
 
 class HLTVSerializer(serializers.Serializer):
-    hltv = serializers.DecimalField(max_digits=None, decimal_places=2)
+    hltv = serializers.DecimalField(
+        max_digits=None, decimal_places=2, rounding=decimal.ROUND_HALF_UP)
