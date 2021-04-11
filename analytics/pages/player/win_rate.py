@@ -1,11 +1,13 @@
-from rest_framework import serializers
 import decimal
 
+from rest_framework import serializers
 
-class WinRateStat:
-    def __init__(self, xuid):
-        self.xuid = xuid
+from .player_stat import PlayerStat
 
+
+class WinRateStat(PlayerStat):
+
+    def _fetch_data(self):
         # TODO add logic
         self.wins = 54
         self.ties = 6

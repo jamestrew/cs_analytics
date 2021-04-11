@@ -1,20 +1,21 @@
-from rest_framework import serializers
 import decimal
 
+from rest_framework import serializers
 
-class OneVOneStat:
-    def __init__(self, xuid):
-        self.xuid = xuid
+from .player_stat import PlayerStat
 
+
+class OneVOneStat(PlayerStat):
+
+    def _fetch_data(self):
         # TODO add logic
         self.success = 0.5410830
         self.opportunities = 72
 
 
-class OneVTwoStat:
-    def __init__(self, xuid):
-        self.xuid = xuid
+class OneVTwoStat(PlayerStat):
 
+    def _fetch_data(self):
         # TODO add logic
         self.success = 0.198290
         self.opportunities = 89

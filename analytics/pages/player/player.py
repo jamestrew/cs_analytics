@@ -1,9 +1,11 @@
+
 from rest_framework import serializers
 
 from .hltv import HLTVSerializer, HLTVStat
 from .kd import KDSerializer, KDStat
-from .win_rate import WinRateSerializer, WinRateStat
 from .one_v_x import OneVOneStat, OneVTwoStat, OneVXSerializer
+from .player_stat import PlayerStat
+from .win_rate import WinRateSerializer, WinRateStat
 
 
 def player_exists(xuid):
@@ -11,12 +13,10 @@ def player_exists(xuid):
     pass
 
 
-class Player:
-    def __init__(self, xuid: str):
-        self.xuid = xuid
-        self.valid = player_exists(self.xuid)
+class Player(PlayerStat):
 
-        if self.valid:
+    def _fetch_data(self):
+        if player_exists(self.xuid):
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
             self.winrate = WinRateStat(self.xuid)
