@@ -3,6 +3,11 @@ import pytest
 
 
 @pytest.fixture
+def digga():
+    return '76561198133822308'
+
+
+@pytest.fixture
 def kd_stats():
     stat = Mock('foo')
     stat.kills = 120
