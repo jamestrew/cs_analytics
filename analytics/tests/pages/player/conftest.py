@@ -66,7 +66,7 @@ def hs_stats():
 @pytest.fixture
 def kast_stats():
     stat = Mock()
-    stat.hltv = 0.794098091
+    stat.kast = 0.794098091
     return stat
 
 
