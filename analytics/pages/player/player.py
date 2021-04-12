@@ -16,7 +16,8 @@ from analytics.models import Player as PlayerModel
 class Player(PlayerStat):
 
     def _fetch_data(self):
-        if PlayerModel.objects.filter(xuid=self.xuid).exists():
+        self.valid = PlayerModel.objects.filter(xuid=self.xuid).exists()
+        if self.valid:
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
             self.winrate = WinRateStat(self.xuid)
