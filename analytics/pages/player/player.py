@@ -10,16 +10,13 @@ from .adr import ADRSerializer, ADRStat
 from .kast import KASTSerializer, KASTStat
 from .entry import EntrySerializer, EntryStat
 
-
-def player_exists(xuid):
-    # TODO check xuid valid and player stats exists
-    pass
+from analytics.models import Player as PlayerModel
 
 
 class Player(PlayerStat):
 
     def _fetch_data(self):
-        if player_exists(self.xuid):
+        if PlayerModel.objects.filter(xuid=self.xuid).exists():
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
             self.winrate = WinRateStat(self.xuid)
