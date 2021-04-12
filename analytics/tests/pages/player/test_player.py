@@ -6,7 +6,8 @@ def test_player_serialization(
         hltv_stats,
         win_rate_stats,
         one_v_one_stats,
-        one_v_two_stats
+        one_v_two_stats,
+        adr_stats
 ):
     player = Player('foo')
     player.kd = kd_stats
@@ -14,6 +15,8 @@ def test_player_serialization(
     player.winrate = win_rate_stats
     player.onevone = one_v_one_stats
     player.onevtwo = one_v_two_stats
+    player.adr = adr_stats
+
     kd_player = PlayerSerializer(player)
 
     assert kd_player.data['xuid'] == 'foo'
@@ -22,3 +25,4 @@ def test_player_serialization(
     assert kd_player.data['winrate']
     assert kd_player.data['onevone']
     assert kd_player.data['onevtwo']
+    assert kd_player.data['adr']

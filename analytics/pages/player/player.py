@@ -6,6 +6,7 @@ from .kd import KDSerializer, KDStat
 from .one_v_x import OneVOneStat, OneVTwoStat, OneVXSerializer
 from .player_stat import PlayerStat
 from .win_rate import WinRateSerializer, WinRateStat
+from .adr import ADRSerializer, ADRStat
 
 
 def player_exists(xuid):
@@ -22,6 +23,7 @@ class Player(PlayerStat):
             self.winrate = WinRateStat(self.xuid)
             self.onevone = OneVOneStat(self.xuid)
             self.onevtwo = OneVTwoStat(self.xuid)
+            self.adr = ADRStat(self.xuid)
 
 
 class PlayerSerializer(serializers.Serializer):
@@ -31,3 +33,4 @@ class PlayerSerializer(serializers.Serializer):
     winrate = WinRateSerializer()
     onevone = OneVXSerializer()
     onevtwo = OneVXSerializer()
+    adr = ADRSerializer()
