@@ -8,7 +8,8 @@ def test_player_serialization(
         one_v_one_stats,
         one_v_two_stats,
         adr_stats,
-        kast_stats
+        kast_stats,
+        entry_stats
 ):
     player = Player('foo')
     player.kd = kd_stats
@@ -18,6 +19,7 @@ def test_player_serialization(
     player.onevtwo = one_v_two_stats
     player.adr = adr_stats
     player.kast = kast_stats
+    player.entry = entry_stats
 
     kd_player = PlayerSerializer(player)
 
@@ -29,3 +31,4 @@ def test_player_serialization(
     assert kd_player.data['onevtwo']
     assert kd_player.data['adr']
     assert kd_player.data['kast']
+    assert kd_player.data['entry']
