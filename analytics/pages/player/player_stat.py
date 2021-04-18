@@ -1,5 +1,5 @@
 
-class PlayerStat:
+class PlayerBase:
     def __init__(self, xuid, map_name=None, time_range=None):
         self.xuid = xuid
         self.map = map_name

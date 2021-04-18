@@ -1,9 +1,9 @@
 from rest_framework import serializers
 import decimal
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 
 
-class KASTStat(PlayerStat):
+class KASTStat(PlayerBase):
 
     def _fetch_data(self):
         self.kast = 0.794098091

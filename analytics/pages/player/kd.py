@@ -3,10 +3,10 @@ import decimal
 from analytics.models import PlayerDeath
 from rest_framework import serializers
 
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 
 
-class KDStat(PlayerStat):
+class KDStat(PlayerBase):
     def _fetch_data(self):
         self.kills = PlayerDeath.objects.filter(attacker__xuid=self.xuid).count()
         self.deaths = PlayerDeath.objects.filter(player__xuid=self.xuid).count()

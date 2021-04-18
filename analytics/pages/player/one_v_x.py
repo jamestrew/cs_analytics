@@ -2,10 +2,10 @@ import decimal
 
 from rest_framework import serializers
 
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 
 
-class OneVOneStat(PlayerStat):
+class OneVOneStat(PlayerBase):
 
     def _fetch_data(self):
         # TODO add logic
@@ -13,7 +13,7 @@ class OneVOneStat(PlayerStat):
         self.opportunities = 72
 
 
-class OneVTwoStat(PlayerStat):
+class OneVTwoStat(PlayerBase):
 
     def _fetch_data(self):
         # TODO add logic

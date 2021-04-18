@@ -1,8 +1,8 @@
-from analytics.pages.player.player import PlayerSerializer, Player
+from analytics.pages.player.player import PlayerSerializer, PlayerStat
 from unittest.mock import patch
 
 
-@patch.object(Player, '_fetch_data')
+@patch.object(PlayerStat, '_fetch_data')
 def test_player_serialization(
         player_exists_patch,
         kd_stats,
@@ -15,7 +15,7 @@ def test_player_serialization(
         entry_stats
 ):
 
-    player = Player('foo')
+    player = PlayerStat('foo')
     player.kd = kd_stats
     player.hltv = hltv_stats
     player.winrate = win_rate_stats

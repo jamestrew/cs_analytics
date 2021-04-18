@@ -1,10 +1,10 @@
 import decimal
 from rest_framework import serializers
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 from analytics.models import PlayerDeath
 
 
-class HSStat(PlayerStat):
+class HSStat(PlayerBase):
 
     def _fetch_data(self):
         kills_rs = PlayerDeath.objects.filter(attacker__xuid=self.xuid)

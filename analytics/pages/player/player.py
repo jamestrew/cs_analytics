@@ -1,10 +1,10 @@
-
+# import request
 from rest_framework import serializers
 
 from .hltv import HLTVSerializer, HLTVStat
 from .kd import KDSerializer, KDStat
 from .one_v_x import OneVOneStat, OneVTwoStat, OneVXSerializer
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 from .win_rate import WinRateSerializer, WinRateStat
 from .adr import ADRSerializer, ADRStat
 from .kast import KASTSerializer, KASTStat
@@ -13,7 +13,7 @@ from .entry import EntrySerializer, EntryStat
 from analytics.models import Player as PlayerModel
 
 
-class Player(PlayerStat):
+class PlayerStat(PlayerBase):
 
     def _fetch_data(self):
         self.valid = PlayerModel.objects.filter(xuid=self.xuid).exists()

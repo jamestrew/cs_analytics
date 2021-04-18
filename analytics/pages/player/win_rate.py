@@ -2,10 +2,10 @@ import decimal
 
 from rest_framework import serializers
 
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 
 
-class WinRateStat(PlayerStat):
+class WinRateStat(PlayerBase):
 
     def _fetch_data(self):
         # TODO add logic

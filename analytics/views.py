@@ -1,11 +1,11 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .pages.player.player import Player, PlayerSerializer
+from .pages.player.player import PlayerStat, PlayerSerializer
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def player(request, xuid):
-    data = Player(xuid)
+    data = PlayerStat(xuid)
 
     if not data.valid:
         return Response(status=404)

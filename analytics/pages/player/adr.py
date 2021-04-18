@@ -1,16 +1,15 @@
 from rest_framework import serializers
 import decimal
 from django.db import models
-from .player_stat import PlayerStat
+from .player_stat import PlayerBase
 from analytics.models import PlayerHurt, RoundStart, Player
 
 
-class ADRStat(PlayerStat):
+class ADRStat(PlayerBase):
 
     def _fetch_data(self):
         dmg_rs = PlayerHurt.objects.filter(attacker__xuid=self.xuid)
         self.dmg = list(dmg_rs.aggregate(models.Sum('dmg_health')).values())[0]
-        print(self.dmg)
         self.rounds = RoundStart.objects.filter(
             game_id__in=[rs.game_id for rs in Player.objects.filter(xuid=self.xuid)]
         ).count()
