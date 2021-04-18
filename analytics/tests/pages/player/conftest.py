@@ -4,12 +4,21 @@ import pytest
 
 @pytest.fixture
 def digga():
-    return '76561198133822308'
+    return "76561198133822308"
+
+
+@pytest.fixture
+def digga_info():
+    info = Mock()
+    info.personname = "digga"
+    info.profileurl = "https://steamcommunity.com/id/fridgedigga2/"
+    info.avatar = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/7d/7d9ea4d4ba4d4fed5cdf1ee41c6c6bde1350ed47_full.jpg"
+    return info
 
 
 @pytest.fixture
 def kd_stats():
-    stat = Mock('foo')
+    stat = Mock("foo")
     stat.kills = 120
     stat.deaths = 100
     stat.kd = stat.kills / stat.deaths

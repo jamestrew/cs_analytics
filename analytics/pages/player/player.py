@@ -1,4 +1,3 @@
-# import request
 from rest_framework import serializers
 
 from .hltv import HLTVSerializer, HLTVStat
@@ -9,15 +8,16 @@ from .win_rate import WinRateSerializer, WinRateStat
 from .adr import ADRSerializer, ADRStat
 from .kast import KASTSerializer, KASTStat
 from .entry import EntrySerializer, EntryStat
+from .player_info import PlayerInfo, PlayerInfoSerializer
 
 from analytics.models import Player as PlayerModel
 
 
 class PlayerStat(PlayerBase):
-
     def _fetch_data(self):
         self.valid = PlayerModel.objects.filter(xuid=self.xuid).exists()
         if self.valid:
+            self.player = PlayerInfo(self.xuid)
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
             self.winrate = WinRateStat(self.xuid)
@@ -30,6 +30,7 @@ class PlayerStat(PlayerBase):
 
 class PlayerSerializer(serializers.Serializer):
     xuid = serializers.CharField()
+    player = PlayerInfoSerializer()
     hltv = HLTVSerializer()
     kd = KDSerializer()
     winrate = WinRateSerializer()
