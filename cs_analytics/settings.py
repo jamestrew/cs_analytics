@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'cs_analytics.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dev_csgo_analysis',  # dev db
+        'NAME': 'dev_cs_analysis',  # dev db
         'USER': 'postgres',
         'PASSWORD': db.pwd,
-        'HOST': '127.0.0.1',
+        'HOST': db.endpoint,
         'PORT': '5432'
     }
 }
