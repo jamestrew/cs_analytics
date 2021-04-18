@@ -1,0 +1,9 @@
+requests
+Django             
+django-cors-headers
+django-stubs       
+django-stubs-ext   
+djangorestframework
+psycopg2
+pytest-django
+black
