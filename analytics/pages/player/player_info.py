@@ -13,12 +13,14 @@ class PlayerInfo(PlayerBase):
         steam_api_key = str(os.environ.get("STEAM_API_KEY"))
         full_url = api_url + steam_api_key + "&steamids=" + self.xuid
 
-        resp = requests.get(full_url)
-        if resp.status_code == 200:
-            data = resp.json()["response"]["players"].pop()
+        self.resp = requests.get(full_url)
+        if self.resp.status_code == 200:
+            data = self.resp.json()["response"]["players"].pop()
             self.personname = data["personaname"]
             self.profileurl = data["profileurl"]
             self.avatar = data["avatarfull"]
+        else:
+            return False
 
 
 class PlayerInfoSerializer(serializers.Serializer):

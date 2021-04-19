@@ -18,6 +18,9 @@ class PlayerStat(PlayerBase):
         self.valid = PlayerModel.objects.filter(xuid=self.xuid).exists()
         if self.valid:
             self.player = PlayerInfo(self.xuid)
+            if not self.player:
+                self.valid = False
+                return 
             self.hltv = HLTVStat(self.xuid)
             self.kd = KDStat(self.xuid)
             self.winrate = WinRateStat(self.xuid)
