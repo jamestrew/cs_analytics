@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {LargeCard} from "./LargeCard"
+import { LargeCard } from "./LargeCard"
 import { djangoAPI } from "../utils/API";
 
 export const Player = (props) => {
@@ -8,7 +8,7 @@ export const Player = (props) => {
   const fetchUrl = "player/" + xuid;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDatt = async () => {
       const request = await djangoAPI.get(fetchUrl);
       setData(request.data);
       console.log(request.data)
