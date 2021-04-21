@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
-import { LargeCard } from "./LargeCard"
+import { LargeCard } from "./LargeCard";
 import { djangoAPI } from "../utils/API";
 
-export const Player = (props) => {
-  const [data, setData] = useState([]);
-  const xuid = props.match.params.xuid;
-  const fetchUrl = "player/" + xuid;
+export const PlayerSetup = (props) => {
+    const [xuid, setXuid] = useState(props.match.params.xuid)
+    const [data, setData] = useState();
+    const fetchUrl = "player/" + xuid;
 
-  useEffect(() => {
-    const fetchDatt = async () => {
-      const request = await djangoAPI.get(fetchUrl);
-      setData(request.data);
-      console.log(request.data)
-      return request;
-    };
-    fetchData();
-  }, [fetchUrl]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const request = await djangoAPI.get(fetchUrl);
+            setData(request.data);
+            return request;
+        };
+        fetchData();
+    }, [fetchUrl]);
 
-  return (
-    <div>
-      <h1>Hello {xuid}!</h1>
-      <LargeCard header="Kills/Death" mainStat={data.kd_ratio}/>
-      <p>Kills: {data.kills}</p>
-      <p>Deaths: {data.deaths}</p>
-      <p>K/D: {data.kd_ratio}</p>
-    </div>
-  );
+    return (
+        <div>
+            {data && <Player data={ data }/>}
+        </div>
+    );
 };
+
+const Player = ({ data }) => (
+    <div>
+        <img src={data['player']['avatar']} alt="avatar" />
+        <h2>{data["player"]["personname"]}</h2>
+    </div>
+);
