@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# tsconfig
+tsconfig.json
+
 # Distribution / packaging
 .Python
 env/
