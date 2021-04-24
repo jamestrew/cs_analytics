@@ -1,10 +1,18 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import { PlayerSetup } from "./components/Player";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
-const Home = () => <h1>WElcome to cS ANalYTics</h1>;
+const Home:FC = () => {
 
-export const App = () => {
+  return (
+    <>
+      <h1>WElcome to cS ANalYTics</h1>
+    </>
+  )
+
+}
+
+export const App:FC = () => {
   useEffect(() => {
     document.title = "CS ANALYSIS";
     document.body.classList.toggle("bg-dark", true);
