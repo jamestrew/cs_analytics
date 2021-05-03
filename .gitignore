@@ -6,8 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
-# tsconfig
+# tsconfig and prettier stuff
 tsconfig.json
+.prettierrc.json
+.prettierignore
 
 # Distribution / packaging
 .Python
